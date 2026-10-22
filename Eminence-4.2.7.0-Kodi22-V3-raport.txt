@@ -1,0 +1,80 @@
+Eminence 4.2.7.0 — Kodi 22 / Skin Shortcuts V3
+=================================================
+Baza: skin.eminence.2 4.2.6.5 (wersja użytkownika)
+Cel: klasyczny układ Eminence, Android TV, Kodi 22 Piers, TMDb Helper
+
+Wprowadzone zmiany
+------------------
+1. Kodi 22:
+   - xbmc.gui: 5.18.0
+   - wersja skórki: 4.2.7.0
+
+2. Skin Shortcuts V3:
+   - script.skinshortcuts: 3.0.1
+   - natywna struktura: menus.xml, widgets.xml, properties.xml,
+     backgrounds.xml, templates.xml
+   - usunięte pliki V2: *.DATA.xml, overrides.xml, template.xml
+   - Home uruchamia wyłącznie: type=buildxml
+   - usunięty dodatkowy buildxml przy wychodzeniu z ustawień
+   - manage: menu=mainmenu / menu=powermenu / menu=x....
+
+3. Klasyczny Eminence:
+   - zachowany kontener głównego menu 9000
+   - zachowany jeden statyczny kontener widgetu 9001
+   - zachowane klasyczne submenu 9002
+   - zachowana logika: 1 pozycja menu -> 1 widget + submenu
+   - zachowane klasyczne huby filmów/seriali (1101/1102)
+
+4. TMDb Helper:
+   - zachowane TMDBHelper.WidgetContainer=9001
+   - widget picker V3 udostępnia dynamiczne Video Add-ons
+   - TMDb Helper można przeglądać i wskazywać jego ścieżki bez wpisywania
+     na sztywno tras konkretnej wersji dodatku
+
+5. Dialog konfiguracji V3:
+   - widget: control 309
+   - tło: control 310
+   - submenu: control 405
+   - reset bieżącej pozycji: control 312
+   - Window.Property(groupname) -> Window.Property(menuname)
+   - PosterWidget zachowany jako natywna właściwość toggle V3
+
+6. Lekkość / Android TV:
+   - brak multi-widgetów i elementów Arctic Zephyr
+   - brak nowych usług działających w tle
+   - zachowane effectslowdown=0.75 z wersji bazowej
+   - renderer Home nie został przebudowany; zmieniono głównie warstwę
+     konfiguracji/generowania menu
+
+Świadomie wyłączone elementy starego V2
+---------------------------------------
+- wybór globalnego fallback widgetu przez stare type=widgets
+- wybór osobnego widgetu dla hubu przez stare type=widgets
+- edycja koloru pojedynczego kafla używająca starego kanału customProperty
+
+Nie wpływa to na podstawowy model: menu + submenu + widget TMDb Helper.
+
+Walidacja statyczna
+-------------------
+- wszystkie 133 pliki XML parsują się poprawnie
+- brak wywołań type=widgets V2
+- brak manage&group= V2
+- brak buildxml z parametrami V2
+- brak skinshortcuts-group-* V2
+- brak Window.Property(groupname)
+- brak *.DATA.xml / overrides.xml / starego template.xml
+- TMDBHelper.WidgetContainer=9001 zachowany
+
+Pierwszy test na Sony Bravia / Kodi 22
+--------------------------------------
+1. Instalacja ZIP bez błędu zależności.
+2. Ustawienia skórki -> konfiguracja menu głównego.
+3. Sprawdź edycję etykiety/akcji/ikony.
+4. Widget -> Wideo -> Dodatki wideo -> TMDb Helper -> wybierz listę.
+5. Powrót na Home: sprawdź widget przy właściwej pozycji menu.
+6. Utwórz submenu i przypisz widget do pozycji submenu.
+7. Sprawdź nawigację pilotem Home -> widget -> submenu -> Home.
+8. Uruchom Kodi ponownie i sprawdź trwałość konfiguracji.
+
+Uwaga: zachowanie Skin Shortcuts V3 i TMDb Helper w runtime można ostatecznie
+potwierdzić dopiero na uruchomionym Kodi 22. Paczka przeszła walidację statyczną.
