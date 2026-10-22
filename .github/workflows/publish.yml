@@ -1,0 +1,44 @@
+name: Publikuj BKA
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '*.zip'
+      - 'generate_index.py'
+      - '.github/workflows/publish.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Pobierz pliki BKA
+        uses: actions/checkout@v4
+
+      - name: Wygeneruj stronę i skopiuj ZIP-y
+        run: python3 generate_index.py
+
+      - name: Skonfiguruj GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Przygotuj pliki publikacji
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: _site
+
+      - name: Opublikuj stronę
+        id: deployment
+        uses: actions/deploy-pages@v4
